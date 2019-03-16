@@ -1,0 +1,11 @@
+type Task {
+	id: ID!
+	product: Product!
+	title: String!
+	url: String!
+	color: String!
+}
+
+extend type Query {
+    findAllTasks: [Task]!
+}

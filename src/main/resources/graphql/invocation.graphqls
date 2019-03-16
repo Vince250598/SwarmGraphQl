@@ -1,0 +1,10 @@
+type Invocation {
+	id: ID!
+	invoking: Method!
+	invoked: Method!
+	session: Session!
+}
+
+extend type Query {
+    findAllInvocations: [Invocation]!
+}

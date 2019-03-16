@@ -1,0 +1,11 @@
+type Breakpoint {
+	id: ID!
+	type: Type!
+	charStart: String!
+	charEnd: String!
+	lineNumber: Int!
+}
+
+extend type Query {
+    findAllBreakpoints: [Breakpoint]!
+}

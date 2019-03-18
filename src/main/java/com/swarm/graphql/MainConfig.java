@@ -121,6 +121,8 @@ public class MainConfig {
 			methodRepository.save(method2);
 			invocationRepository.save(invocation1);
 			eventRepository.save(event1);
+			
+			System.out.println("test git");
 		};
 	}
 

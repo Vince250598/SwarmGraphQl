@@ -1,0 +1,9 @@
+type Namespace {
+	id: ID!
+	name: String!
+	fullPath: String!
+}
+
+extend type Query {
+    findAllNamespaces: [Namespace]!
+}

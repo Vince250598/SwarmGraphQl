@@ -1,0 +1,9 @@
+type Developer {
+	id: ID!
+	name: String!
+	color: String!
+}
+
+type Query {
+	findAllDevelopers: [Developer]!
+}

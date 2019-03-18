@@ -1,0 +1,13 @@
+type Type {
+	id: ID!
+	namespace: Namespace!
+	session: Session!
+	fullName: String
+	fullPath: String
+	name: String
+	source: String
+}
+
+extend type Query {
+    findAllTypes: [Type]!
+}

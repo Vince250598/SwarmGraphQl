@@ -16,9 +16,4 @@ public class SessionResolverTest {
 		fail("Not yet implemented");
 	}
 
-	@Test
-	public final void testGetProduct() {
-		fail("Not yet implemented");
-	}
-
 }

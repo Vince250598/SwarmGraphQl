@@ -16,19 +16,4 @@ public class SwarmGraphQlApplicationTest {
 		fail("Not yet implemented");
 	}
 
-	@Test
-	public final void testDeveloperResolver() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public final void testTaskResolver() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public final void testQuery() {
-		fail("Not yet implemented");
-	}
-
 }

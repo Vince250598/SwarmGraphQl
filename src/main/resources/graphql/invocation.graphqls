@@ -3,6 +3,7 @@ type Invocation {
 	invoking: Method!
 	invoked: Method!
 	session: Session!
+	isVirtual: Boolean!
 }
 
 extend type Query {

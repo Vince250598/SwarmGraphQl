@@ -1,5 +1,7 @@
 package com.swarm.graphql.model;
 
+import java.util.Calendar;
+
 import javax.persistence.*;
 
 @Entity
@@ -17,6 +19,9 @@ public class Task {
 	String url;
 	
 	String color;
+	
+	@Column(name="CREATION_TS", columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable=false, updatable=false)
+	private Calendar timestamp;
 	
 	public Task() {
 	}

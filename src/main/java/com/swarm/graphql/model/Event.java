@@ -1,5 +1,7 @@
 package com.swarm.graphql.model;
 
+import java.util.Calendar;
+
 import javax.persistence.*;
 
 @Entity
@@ -24,6 +26,9 @@ public class Event {
 	String detail;
 
 	String kind;
+	
+	@Column(name="CREATION_TS", columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable=false, updatable=false)
+	private Calendar timestamp;
 	
 	public Event() {
 	}

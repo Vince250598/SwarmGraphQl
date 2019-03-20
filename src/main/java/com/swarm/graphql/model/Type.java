@@ -1,5 +1,7 @@
 package com.swarm.graphql.model;
 
+import java.util.Calendar;
+
 import javax.persistence.*;
 
 @Entity
@@ -15,13 +17,20 @@ public class Type {
 	@ManyToOne(optional = false)
 	private Session session;
 
+	@Column(nullable = false)
 	String fullName;
 	
+	@Column(nullable = false)
 	String fullPath;
 	
+	@Column(nullable = false)
 	String name;
 	
+	@Column(length = 1000000)
 	String source;
+	
+	@Column(name="CREATION_TS", columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable=false, updatable=false)
+	private Calendar timestamp;
 	
 	public Type() {
 	}

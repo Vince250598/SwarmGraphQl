@@ -1,5 +1,7 @@
 package com.swarm.graphql.model;
 
+import java.util.Calendar;
+
 import javax.persistence.*;
 
 @Entity
@@ -9,7 +11,11 @@ public class Product {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
 	
-	private String name;
+	@Column(nullable = false)
+	String name;
+	
+	@Column(name="CREATION_TS", columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable=false, updatable=false)
+	private Calendar timestamp;
 	
 	public Product() {
 	}

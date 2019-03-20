@@ -2,11 +2,11 @@ type Event {
 	id: ID!
 	method: Method!
 	session: Session!
-	charStart: String!
-	charEnd: String!
-	lineNumber: Int!
-	detail: String!
-	kind: String!
+	charStart: String
+	charEnd: String
+	lineNumber: Int
+	detail: String
+	kind: String
 }
 
 extend type Query {

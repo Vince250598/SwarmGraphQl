@@ -2,10 +2,10 @@ type Session {
 	id: ID!
 	developer: Developer!
 	task: Task!
-	description: String!
-	label: String!
-	purpose: String!
-	project: String!
+	description: String
+	label: String
+	purpose: String
+	project: String
 }
 
 extend type Query {

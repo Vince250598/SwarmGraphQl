@@ -1,5 +1,8 @@
 package com.swarm.graphql.model;
 
+import java.util.Calendar;
+import java.util.Date;
+
 import javax.persistence.*;
 
 @Entity
@@ -22,6 +25,15 @@ public class Session {
 	String purpose;
 	
 	String project;
+	
+	@Column(name="CREATION_TS", columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable=false, updatable=false)
+	private Calendar timestamp;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date started;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date finished;
 	
 	public Session() {
 	}
@@ -89,6 +101,22 @@ public class Session {
 
 	public void setProject(String project) {
 		this.project = project;
+	}
+	
+	public Date getStarted() {
+		return started;
+	}
+
+	public void setStarted(Date started) {
+		this.started = started;
+	}
+
+	public Date getFinished() {
+		return finished;
+	}
+
+	public void setFinished(Date finished) {
+		this.finished = finished;
 	}
     
     @Override

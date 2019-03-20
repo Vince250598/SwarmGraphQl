@@ -1,5 +1,7 @@
 package com.swarm.graphql.model;
 
+import java.util.Calendar;
+
 import javax.persistence.*;
 
 @Entity
@@ -9,9 +11,16 @@ public class Developer {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
 	
-	private String name;
+	@Column(nullable = false)
+	String name;
 	
-	private String color;
+	String color;
+	
+	@Column(name="CREATION_TS", columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable=false, updatable=false)
+	private Calendar timestamp;
+	
+	@Transient
+	boolean logged;
 	
 	public Developer() {
 	}
@@ -43,6 +52,14 @@ public class Developer {
 	
 	public void setColor(String color) {
 		this.color = color;
+	}
+	
+	public boolean isLogged() {
+		return logged;
+	}
+
+	public void setLogged(boolean logged) {
+		this.logged = logged;
 	}
 	
 	@Override

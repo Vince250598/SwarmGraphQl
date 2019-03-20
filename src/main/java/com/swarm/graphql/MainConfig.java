@@ -99,7 +99,7 @@ public class MainConfig {
 			Method method1 = new Method(type1,"method1.key","method1.name","method1.signature");
 			Method method2 = new Method(type2,"method2.key","method2.name","method2.signature");
 			
-			Invocation invocation1 = new Invocation(method1,method2,session1);
+			Invocation invocation1 = new Invocation(method1,method2,session1,false);
 			
 			Event event1 = new Event(method2,session2,"event1.charStart","event1.charEnd",349,"event1.detail","event1.kind");
 			

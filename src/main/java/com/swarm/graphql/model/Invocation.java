@@ -1,5 +1,7 @@
 package com.swarm.graphql.model;
 
+import java.util.Calendar;
+
 import javax.persistence.*;
 
 @Entity
@@ -18,13 +20,20 @@ public class Invocation {
 	@ManyToOne(optional = false)
 	private Session session;
 	
+	@Column(name="CREATION_TS", columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable=false, updatable=false)
+	private Calendar timestamp;
+	
+	@Transient
+	private boolean isVirtual;
+	
 	public Invocation() {
 	}
 	
-	public Invocation(Method invoking, Method invoked, Session session) {
+	public Invocation(Method invoking, Method invoked, Session session, boolean isVirtual) {
 		this.invoking = invoking;
 		this.invoked = invoked;
 		this.session = session;
+		this.isVirtual = isVirtual;
 	}
 	
 	public Long getId() {
@@ -57,6 +66,14 @@ public class Invocation {
 
 	public void setSession(Session session) {
 		this.session = session;
+	}
+	
+	public boolean isVirtual() {
+		return this.isVirtual;
+	}
+	
+	public void setVirtual(boolean virtual) {
+		this.isVirtual = virtual;
 	}
 	
 	@Override

@@ -1,7 +1,7 @@
 type Developer {
 	id: ID!
 	name: String!
-	color: String!
+	color: String
 }
 
 type Query {

@@ -1,5 +1,7 @@
 package com.swarm.graphql.model;
 
+import java.util.Calendar;
+
 import javax.persistence.*;
 
 @Entity
@@ -12,11 +14,17 @@ public class Method {
 	@ManyToOne(optional = false)
 	private Type type;
 
+	@Column(nullable = false)
 	String key;
 
+	@Column(nullable = false)
 	String name;
 
+	@Column(nullable = false)
 	String signature;
+	
+	@Column(name="CREATION_TS", columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable=false, updatable=false)
+	private Calendar timestamp;
 	
 	public Method() {
 	}

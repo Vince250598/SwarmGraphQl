@@ -1,5 +1,7 @@
 package com.swarm.graphql.model;
 
+import java.util.Calendar;
+
 import javax.persistence.*;
 
 @Entity
@@ -12,11 +14,17 @@ public class Breakpoint {
 	@ManyToOne(optional = false)
 	private Type type;
 
+	@Column(nullable = false)
 	String charStart;
 	
+	@Column(nullable = false)
 	String charEnd;
 	
+	@Column(nullable = false)
 	Integer lineNumber;
+	
+	@Column(name="CREATION_TS", columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable=false, updatable=false)
+	private Calendar timestamp;
 	
 	public Breakpoint() {
 	}

@@ -3,7 +3,3 @@ type Namespace {
 	name: String!
 	fullPath: String!
 }
-
-extend type Query {
-    findAllNamespaces: [Namespace]!
-}

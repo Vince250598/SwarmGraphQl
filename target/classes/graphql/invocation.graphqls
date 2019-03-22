@@ -5,7 +5,3 @@ type Invocation {
 	session: Session!
 	isVirtual: Boolean!
 }
-
-extend type Query {
-    findAllInvocations: [Invocation]!
-}

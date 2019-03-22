@@ -7,7 +7,3 @@ type Type {
 	name: String!
 	source: String!
 }
-
-extend type Query {
-    findAllTypes: [Type]!
-}

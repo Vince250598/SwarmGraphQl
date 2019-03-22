@@ -38,44 +38,17 @@ public class Query implements GraphQLQueryResolver {
         this.invocationRepository = invocationRepository;
         this.eventRepository = eventRepository;
     }
-
-    public Iterable<Session> findAllSessions() {
-        return sessionRepository.findAll();
-    }
-
-    public Iterable<Developer> findAllDevelopers() {
-        return developerRepository.findAll();
-    }
     
-    public Iterable<Task> findAllTasks() {
+    public Iterable<Task> allTasks() {
         return taskRepository.findAll();
     }
     
-    public Iterable<Product> findAllProducts() {
-        return productRepository.findAll();
-    }
-    
-    public Iterable<Namespace> findAllNamespaces() {
-        return namespaceRepository.findAll();
-    }
-    
-    public Iterable<Type> findAllTypes() {
-        return typeRepository.findAll();
-    }
-    
-    public Iterable<Breakpoint> findAllBreakpoints() {
+    public Iterable<Breakpoint> allBreakpoints() {
         return breakpointRepository.findAll();
     }
     
-    public Iterable<Method> findAllMethods() {
-        return methodRepository.findAll();
-    }
-    
-    public Iterable<Invocation> findAllInvocations() {
-        return invocationRepository.findAll();
-    }
-    
-    public Iterable<Event> findAllEvents() {
-        return eventRepository.findAll();
+    public Iterable<Breakpoint> breakpointsByTaskId(Long taskId){
+		return breakpointRepository.breakpointsByTaskId(taskId);
+    	
     }
 }

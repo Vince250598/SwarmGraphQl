@@ -7,7 +7,3 @@ type Session {
 	purpose: String
 	project: String
 }
-
-extend type Query {
-    findAllSessions: [Session]!
-}

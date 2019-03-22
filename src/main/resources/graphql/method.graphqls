@@ -5,7 +5,3 @@ type Method {
 	name: String!
 	signature: String!
 }
-
-extend type Query {
-    findAllMethods: [Method]!
-}

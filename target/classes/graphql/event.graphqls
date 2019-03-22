@@ -8,7 +8,3 @@ type Event {
 	detail: String
 	kind: String
 }
-
-extend type Query {
-    findAllEvents: [Event]!
-}

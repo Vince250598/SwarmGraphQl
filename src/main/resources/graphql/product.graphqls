@@ -2,7 +2,3 @@ type Product {
 	id: ID!
 	name: String!
 }
-
-extend type Query {
-    findAllProducts: [Product]!
-}

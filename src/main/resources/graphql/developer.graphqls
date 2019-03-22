@@ -3,7 +3,3 @@ type Developer {
 	name: String!
 	color: String
 }
-
-type Query {
-	findAllDevelopers: [Developer]!
-}

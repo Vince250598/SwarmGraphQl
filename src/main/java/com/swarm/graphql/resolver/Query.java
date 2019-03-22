@@ -39,16 +39,25 @@ public class Query implements GraphQLQueryResolver {
         this.eventRepository = eventRepository;
     }
     
-    public Iterable<Task> allTasks() {
-        return taskRepository.findAll();
-    }
+    // Breakpoint
     
     public Iterable<Breakpoint> allBreakpoints() {
         return breakpointRepository.findAll();
     }
     
     public Iterable<Breakpoint> breakpointsByTaskId(Long taskId){
-		return breakpointRepository.breakpointsByTaskId(taskId);
-    	
+		return breakpointRepository.findByTaskId(taskId);
+    }
+    
+    // Task
+    
+    public Iterable<Task> allTasks() {
+        return taskRepository.findAll();
+    }
+    
+    // Type
+    
+    public Iterable<Type> typesBySessionId(Long sessionId){
+    	return typeRepository.findBySessionId(sessionId);
     }
 }

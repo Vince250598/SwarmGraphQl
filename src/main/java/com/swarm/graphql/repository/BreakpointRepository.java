@@ -11,6 +11,6 @@ import com.swarm.graphql.model.Breakpoint;
 public interface BreakpointRepository extends CrudRepository<Breakpoint, Long> {
 	
 	@Query("Select b from Breakpoint b Where b.type.session.task.id = :taskId order by b.lineNumber")
-	List<Breakpoint> breakpointsByTaskId(@Param("taskId") Long taskId);
+	List<Breakpoint> findByTaskId(@Param("taskId") Long taskId);
 
 }

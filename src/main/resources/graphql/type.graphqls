@@ -7,3 +7,8 @@ type Type {
 	name: String!
 	source: String!
 }
+
+extend type Query {
+    typesBySessionId(sessionId: ID!): [Type]!
+}
+

@@ -17,8 +17,12 @@ public class InvocationResolver implements GraphQLResolver<Invocation> {
 		return sessionRepository.findOne(invocation.getSession().getId());
     }
     
-    public Method getMethod(Invocation invocation) {
+    public Method getMethodInvoked(Invocation invocation) {
     	return methodRepository.findOne(invocation.getInvoked().getId());
+    }
+    
+    public Method getMethodInvoking(Invocation invocation) {
+    	return methodRepository.findOne(invocation.getInvoking().getId());
     }
 
 }

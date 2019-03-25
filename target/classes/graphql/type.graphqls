@@ -9,6 +9,6 @@ type Type {
 }
 
 extend type Query {
-    typesBySessionId(sessionId: ID!): [Type]!
+    typesBySessionId(sessionId: ID!): [Type]
 }
 

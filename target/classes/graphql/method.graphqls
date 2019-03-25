@@ -7,6 +7,6 @@ type Method {
 }
 
 extend type Query {
-    methodsByTypeId(typeId: ID!): [Method]!
+    methodsByTypeId(typeId: ID!): [Method]
 }
 

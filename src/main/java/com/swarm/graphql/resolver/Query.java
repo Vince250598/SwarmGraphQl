@@ -66,4 +66,10 @@ public class Query implements GraphQLQueryResolver {
     public Iterable<Method> methodsByTypeId(Long typeId){
     	return methodRepository.findByTypeId(typeId);
     }
+    
+    // Namespace
+    
+    public Namespace namespaceByFullPath(String fullPath){
+    	return namespaceRepository.findByFullPath(fullPath);
+    }
 }

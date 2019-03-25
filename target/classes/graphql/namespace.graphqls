@@ -3,3 +3,7 @@ type Namespace {
 	name: String!
 	fullPath: String!
 }
+
+extend type Query {
+    namespaceByFullPath(fullPath: String!): Namespace
+}

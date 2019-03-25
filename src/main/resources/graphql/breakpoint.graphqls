@@ -7,6 +7,6 @@ type Breakpoint {
 }
 
 type Query {
-    allBreakpoints: [Breakpoint]!
-    breakpointsByTaskId(taskId: ID!): [Breakpoint]!
+    allBreakpoints: [Breakpoint]
+    breakpointsByTaskId(taskId: ID!): [Breakpoint]
 }

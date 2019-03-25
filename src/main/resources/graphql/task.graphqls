@@ -7,5 +7,5 @@ type Task {
 }
 
 extend type Query {
-    allTasks: [Task]!
+    allTasks: [Task]
 }

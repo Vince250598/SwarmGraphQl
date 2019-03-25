@@ -67,6 +67,11 @@ public class Query implements GraphQLQueryResolver {
     	return methodRepository.findByTypeId(typeId);
     }
     
+    public Iterable<Method> getStartingMethods(Long sessionId){
+    	Session session = sessionRepository.findOne(sessionId);
+    	return methodRepository.getStartingMethods(session);
+    }
+    
     // Namespace
     
     public Namespace namespaceByFullPath(String fullPath){

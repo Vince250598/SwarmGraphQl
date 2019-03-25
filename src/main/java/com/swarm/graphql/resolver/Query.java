@@ -60,4 +60,10 @@ public class Query implements GraphQLQueryResolver {
     public Iterable<Type> typesBySessionId(Long sessionId){
     	return typeRepository.findBySessionId(sessionId);
     }
+    
+    // Method
+    
+    public Iterable<Method> methodsByTypeId(Long typeId){
+    	return methodRepository.findByTypeId(typeId);
+    }
 }

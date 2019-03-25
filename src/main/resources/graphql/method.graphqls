@@ -5,3 +5,8 @@ type Method {
 	name: String!
 	signature: String!
 }
+
+extend type Query {
+    methodsByTypeId(typeId: ID!): [Method]!
+}
+

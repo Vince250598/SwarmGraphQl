@@ -17,5 +17,9 @@ public interface MethodRepository extends CrudRepository<Method, Long> {
 	@Query("select m from Method m, Type t, Session s where m.type = t and t.session = s and s = :session " +
 			"and m not in (select i.invoked from Invocation i group by i.invoked) order by m.id")
 	List<Method> getStartingMethods(@Param("session") Session session);
+	
+	@Query("select m from Method m, Type t, Session s where m.type = t and t.session = s and s = :session " +
+			"and m not in (select i.invoking from Invocation i group by i.invoking) order by m.id")
+	List<Method> getEndingMethods(@Param("session") Session session);
 
 }

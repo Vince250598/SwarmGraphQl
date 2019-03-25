@@ -1,3 +1,5 @@
+scalar Date
+
 type Session {
 	id: ID!
 	developer: Developer!
@@ -6,4 +8,6 @@ type Session {
 	label: String
 	purpose: String
 	project: String
+	started: Date
+	finished: Date
 }

@@ -1,15 +1,48 @@
 package com.swarm.graphql;
 
+import java.text.Format;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 
 import com.swarm.graphql.model.*;
 import com.swarm.graphql.repository.*;
 import com.swarm.graphql.resolver.*;
 
+import graphql.schema.Coercing;
+import graphql.schema.GraphQLScalarType;
+
 @Configuration
 public class MainConfig {
+	
+	@Component
+	public class ScalarDate extends GraphQLScalarType {
+	    public ScalarDate() {
+	    	super("Date", "Scalar Date", new Coercing() {
+	    		@Override
+	            public String serialize(Object input) {
+	    			Format formatter = new SimpleDateFormat("dd-MMM-yyyy");
+	    			return formatter.format((Date)input);
+	            }
+
+	            @Override
+	            public Object parseValue(Object input) {
+	                return serialize(input);
+	            }
+
+				@Override
+				public Object parseLiteral(Object input) {
+					// Implémenter si le type mutation est ajouté
+					return null;
+				}
+
+	        });
+	    }
+	}
 	
 	@Bean
 	public SessionResolver developerResolver(DeveloperRepository developerRepository, TaskRepository taskRepository) {
@@ -84,8 +117,10 @@ public class MainConfig {
 			Task task1 = new Task(product1, "task1.title","task1.url","task1.color");
 			Task task2 = new Task(product2, "task2.title","task2.url","task2.color");
 			
-			Session session1 = new Session(developer1, task1, "session1.description", "session1.label","session1.purpose","session1.project");
-			Session session2 = new Session(developer2, task2, "session2.description", "session2.label","session2.purpose","session2.project");
+			Date date = new Date();
+			
+			Session session1 = new Session(developer1, task1, "session1.description", "session1.label","session1.purpose","session1.project",date,date);
+			Session session2 = new Session(developer2, task2, "session2.description", "session2.label","session2.purpose","session2.project",date,date);
 			
 			Namespace namespace1 = new Namespace("namespace1.name","namespace1.fullPath");
 			Namespace namespace2 = new Namespace("namespace2.name","namespace2.fullPath");

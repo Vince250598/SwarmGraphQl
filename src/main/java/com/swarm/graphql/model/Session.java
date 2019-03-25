@@ -38,13 +38,15 @@ public class Session {
 	public Session() {
 	}
 	
-	public Session(Developer developer, Task task, String description, String label, String purpose, String project) {
+	public Session(Developer developer, Task task, String description, String label, String purpose, String project, Date started, Date finished) {
 		this.developer = developer;
 		this.task = task;
 		this.description = description;
 		this.label = label;
 		this.purpose = purpose;
 		this.project = project;
+		this.started = started;
+		this.finished = finished;
 	}
 	
 	public Long getId() {

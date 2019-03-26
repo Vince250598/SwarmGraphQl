@@ -11,3 +11,7 @@ type Session {
 	started: Date
 	finished: Date
 }
+
+extend type Query {
+    sessionsByTaskIdAndDeveloperId(taskId: ID!, developerId: ID!): [Session]
+}

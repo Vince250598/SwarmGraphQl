@@ -88,4 +88,11 @@ public class Query implements GraphQLQueryResolver {
     public Iterable<Invocation> invocationsByMethods(Long sessionId, Long invokingId, Long invokedId){
     	return invocationRepository.findByMethods(sessionId, invokingId, invokedId);
     }
+    
+    // Session
+    
+    public Iterable<Session> sessionsByTaskIdAndDeveloperId(Long taskId, Long developerId){
+    	return sessionRepository.findByTaskAndDeveloper(taskId, developerId);
+    }
+    
 }

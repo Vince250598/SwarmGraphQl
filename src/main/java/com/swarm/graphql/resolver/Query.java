@@ -82,4 +82,10 @@ public class Query implements GraphQLQueryResolver {
     public Namespace namespaceByFullPath(String fullPath){
     	return namespaceRepository.findByFullPath(fullPath);
     }
+    
+    // Invocation
+    
+    public Iterable<Invocation> invocationsByMethods(Long sessionId, Long invokingId, Long invokedId){
+    	return invocationRepository.findByMethods(sessionId, invokingId, invokedId);
+    }
 }

@@ -4,3 +4,7 @@ type Invocation {
 	invoked: Method!
 	session: Session!
 }
+
+extend type Query {
+    invocationsByMethods(sessionId: ID!, invokingId: ID!, invokedId: ID!): [Invocation]
+}

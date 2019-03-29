@@ -9,6 +9,17 @@ import org.springframework.context.annotation.Configuration;
 import com.swarm.graphql.model.*;
 import com.swarm.graphql.repository.*;
 import com.swarm.graphql.resolver.*;
+import com.swarm.graphql.resolver.query.Query;
+import com.swarm.graphql.resolver.query.QueryBreakPoint;
+import com.swarm.graphql.resolver.query.QueryDeveloper;
+import com.swarm.graphql.resolver.query.QueryEvent;
+import com.swarm.graphql.resolver.query.QueryInvocation;
+import com.swarm.graphql.resolver.query.QueryMethod;
+import com.swarm.graphql.resolver.query.QueryNamespace;
+import com.swarm.graphql.resolver.query.QueryProduct;
+import com.swarm.graphql.resolver.query.QuerySession;
+import com.swarm.graphql.resolver.query.QueryTask;
+import com.swarm.graphql.resolver.query.QueryType;
 
 @Configuration
 public class MainConfig {
@@ -48,19 +59,72 @@ public class MainConfig {
 		return new EventResolver(sessionRepository, methodRepository);
 	}
 
+/*	
 	@Bean
-	public Query query(DeveloperRepository developerRepository, 
-			SessionRepository sessionRepository, 
-			TaskRepository taskRepository, 
-			ProductRepository productRepository,
-			NamespaceRepository namespaceRepository,
-			TypeRepository typeRepository,
-			BreakpointRepository breakpointRepository,
-			MethodRepository methodRepository,
-			InvocationRepository invocationRepository,
-			EventRepository eventRepository) {
+	public Query query(MethodRepository methodRepository) {
 		
-		return new Query(developerRepository, sessionRepository, taskRepository, productRepository, namespaceRepository, typeRepository, breakpointRepository, methodRepository, invocationRepository, eventRepository);
+		return new Query(methodRepository);
+	}
+*/	
+
+	@Bean
+	public Query query() {
+		
+		return new Query();
+	}
+	
+	
+
+	@Bean
+	public QueryBreakPoint queryBreakPoint(BreakpointRepository breakpointRepository) {
+		return new QueryBreakPoint(breakpointRepository);
+	}
+	
+	
+	
+	@Bean
+	public QueryDeveloper queryDeveloper(DeveloperRepository developerRepository) {
+		return new QueryDeveloper(developerRepository);
+	}
+	
+	@Bean
+	public QueryTask queryTask(TaskRepository taskRepository) {
+		return new QueryTask(taskRepository);
+	}
+	
+	@Bean
+	public QueryProduct queryProduct(ProductRepository productRepository) {
+		return new QueryProduct(productRepository);
+	}
+
+	@Bean
+	public QueryNamespace queryNamespace(NamespaceRepository namespaceRepository) {
+		return new QueryNamespace(namespaceRepository);
+	}
+
+	@Bean
+	public QuerySession querySession(SessionRepository sessionRepository) {
+		return new QuerySession(sessionRepository);
+	}
+
+	@Bean
+	public QueryInvocation queryInvocation(InvocationRepository invocationRepository) {
+		return new QueryInvocation(invocationRepository);
+	}
+
+	@Bean
+	public QueryType queryType(TypeRepository typeRepository) {
+		return new QueryType(typeRepository);
+	}
+	
+	@Bean
+	public QueryMethod queryMethod(MethodRepository methodRepository) {
+		return new QueryMethod(methodRepository);
+	}
+
+	@Bean
+	public QueryEvent queryEvent(EventRepository eventRepository) {
+		return new QueryEvent(eventRepository);
 	}
 	
 	@Bean

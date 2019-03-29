@@ -6,7 +6,7 @@ type Breakpoint {
 	lineNumber: Int!
 }
 
-type Query {
+extend type Query {
     allBreakpoints: [Breakpoint]
     breakpointsByTaskId(taskId: ID!): [Breakpoint]
 }

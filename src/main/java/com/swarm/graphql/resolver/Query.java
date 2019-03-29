@@ -95,4 +95,7 @@ public class Query implements GraphQLQueryResolver {
     	return sessionRepository.findByTaskAndDeveloper(taskId, developerId);
     }
     
+    public String hello() {
+    	return "hello";
+    }
 }

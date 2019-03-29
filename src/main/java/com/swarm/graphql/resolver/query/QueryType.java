@@ -5,11 +5,10 @@ import com.swarm.graphql.model.*;
 import com.swarm.graphql.repository.TypeRepository;
 
 public class QueryType  implements GraphQLQueryResolver{
+	
 	private TypeRepository typeRepository;
 
-
 	public QueryType(TypeRepository typeRepository) {
-		// TODO Auto-generated constructor stub
 		this.typeRepository = typeRepository;
 	}
 

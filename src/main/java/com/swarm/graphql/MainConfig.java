@@ -10,7 +10,7 @@ import com.swarm.graphql.model.*;
 import com.swarm.graphql.repository.*;
 import com.swarm.graphql.resolver.*;
 import com.swarm.graphql.resolver.query.Query;
-import com.swarm.graphql.resolver.query.QueryBreakPoint;
+import com.swarm.graphql.resolver.query.QueryBreakpoint;
 import com.swarm.graphql.resolver.query.QueryDeveloper;
 import com.swarm.graphql.resolver.query.QueryEvent;
 import com.swarm.graphql.resolver.query.QueryInvocation;
@@ -59,28 +59,15 @@ public class MainConfig {
 		return new EventResolver(sessionRepository, methodRepository);
 	}
 
-/*	
-	@Bean
-	public Query query(MethodRepository methodRepository) {
-		
-		return new Query(methodRepository);
-	}
-*/	
-
 	@Bean
 	public Query query() {
-		
 		return new Query();
 	}
 	
-	
-
 	@Bean
-	public QueryBreakPoint queryBreakPoint(BreakpointRepository breakpointRepository) {
-		return new QueryBreakPoint(breakpointRepository);
+	public QueryBreakpoint queryBreakPoint(BreakpointRepository breakpointRepository, ProductRepository productRepository) {
+		return new QueryBreakpoint(breakpointRepository, productRepository);
 	}
-	
-	
 	
 	@Bean
 	public QueryDeveloper queryDeveloper(DeveloperRepository developerRepository) {
@@ -93,8 +80,8 @@ public class MainConfig {
 	}
 	
 	@Bean
-	public QueryProduct queryProduct(ProductRepository productRepository) {
-		return new QueryProduct(productRepository);
+	public QueryProduct queryProduct(ProductRepository productRepository, InvocationRepository invocationRepository, TypeRepository typeRepository) {
+		return new QueryProduct(productRepository, invocationRepository, typeRepository);
 	}
 
 	@Bean

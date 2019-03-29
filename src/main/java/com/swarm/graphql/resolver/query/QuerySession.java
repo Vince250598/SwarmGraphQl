@@ -5,11 +5,10 @@ import com.swarm.graphql.model.Session;
 import com.swarm.graphql.repository.SessionRepository;
 
 public class QuerySession  implements GraphQLQueryResolver{
+	
 	private SessionRepository sessionRepository;
 	
-	
 	public QuerySession(SessionRepository sessionRepository) {
-		// TODO Auto-generated constructor stub
 		this.sessionRepository = sessionRepository;
 	}
 

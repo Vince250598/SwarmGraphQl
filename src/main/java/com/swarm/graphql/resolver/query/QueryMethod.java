@@ -11,12 +11,8 @@ public class QueryMethod implements GraphQLQueryResolver {
 	private SessionRepository sessionRepository;
 	
 	public QueryMethod(MethodRepository methodRepository) {
-		// TODO Auto-generated constructor stub
 		this.methodRepository = methodRepository;
 	}
-	
-	
-    // Method
     
     public Iterable<Method> methodsByTypeId(Long typeId){
     	return methodRepository.findByTypeId(typeId);

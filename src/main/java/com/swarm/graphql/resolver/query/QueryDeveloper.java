@@ -9,7 +9,6 @@ public class QueryDeveloper  implements GraphQLQueryResolver{
 	private DeveloperRepository developerRepository;
 	
 	public QueryDeveloper(DeveloperRepository developerRepository) {
-		// TODO Auto-generated constructor stub
 		this.developerRepository = developerRepository;
 	}
 

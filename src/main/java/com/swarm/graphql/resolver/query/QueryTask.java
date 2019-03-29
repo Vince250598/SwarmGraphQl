@@ -9,7 +9,6 @@ public class QueryTask  implements GraphQLQueryResolver{
 	private TaskRepository taskRepository;
 	
 	public QueryTask(TaskRepository taskRepository) {
-		// TODO Auto-generated constructor stub
 		this.taskRepository = taskRepository;
 	}
 

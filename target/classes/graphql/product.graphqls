@@ -2,3 +2,7 @@ type Product {
 	id: ID!
 	name: String!
 }
+
+extend type Query {
+	getProductPaths(productId: ID!): String
+}

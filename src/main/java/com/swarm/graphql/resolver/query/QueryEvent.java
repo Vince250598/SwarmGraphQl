@@ -8,7 +8,6 @@ public class QueryEvent  implements GraphQLQueryResolver{
 	private EventRepository eventRepository;
 
 	public QueryEvent(EventRepository eventRepository) {
-		// TODO Auto-generated constructor stub
 		 this.eventRepository = eventRepository;
 	}
 	

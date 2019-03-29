@@ -9,4 +9,5 @@ type Breakpoint {
 extend type Query {
     allBreakpoints: [Breakpoint]
     breakpointsByTaskId(taskId: ID!): [Breakpoint]
+    getTable(productId: ID!): String
 }

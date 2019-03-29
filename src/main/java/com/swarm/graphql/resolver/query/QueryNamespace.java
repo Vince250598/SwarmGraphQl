@@ -9,7 +9,6 @@ public class QueryNamespace  implements GraphQLQueryResolver{
 	private NamespaceRepository namespaceRepository;
 	
 	public QueryNamespace(NamespaceRepository namespaceRepository) {
-		// TODO Auto-generated constructor stub
 		this.namespaceRepository = namespaceRepository;
 	}
 

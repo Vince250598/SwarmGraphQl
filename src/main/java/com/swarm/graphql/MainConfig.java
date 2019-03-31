@@ -75,8 +75,8 @@ public class MainConfig {
 	}
 	
 	@Bean
-	public QueryTask queryTask(TaskRepository taskRepository) {
-		return new QueryTask(taskRepository);
+	public QueryTask queryTask(TaskRepository taskRepository, SessionRepository sessionRepository, TypeRepository typeRepository, BreakpointRepository breakpointRepository) {
+		return new QueryTask(taskRepository, sessionRepository, typeRepository, breakpointRepository);
 	}
 	
 	@Bean
@@ -90,8 +90,8 @@ public class MainConfig {
 	}
 
 	@Bean
-	public QuerySession querySession(SessionRepository sessionRepository) {
-		return new QuerySession(sessionRepository);
+	public QuerySession querySession(SessionRepository sessionRepository, TypeRepository typeRepository, MethodRepository methodRepository, InvocationRepository invocationRepository) {
+		return new QuerySession(sessionRepository, typeRepository, methodRepository, invocationRepository);
 	}
 
 	@Bean

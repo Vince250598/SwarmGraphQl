@@ -8,4 +8,6 @@ type Task {
 
 extend type Query {
     allTasks: [Task]
+    getGraphDataByTaskId(taskId: ID!): String
+    getBreakpointGraphData(taskId: ID!): String
 }

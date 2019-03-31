@@ -14,4 +14,8 @@ type Session {
 
 extend type Query {
     sessionsByTaskIdAndDeveloperId(taskId: ID!, developerId: ID!): [Session]
+    getGraphData(sessionId: ID!, addType: Boolean!): String
+    getStackData(sessionId: ID!): String
+    getInterPathEdges(sessionId: ID!): String
+    countElements(sessionId: ID!): Int
 }

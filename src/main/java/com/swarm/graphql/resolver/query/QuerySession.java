@@ -22,11 +22,8 @@ public class QuerySession  implements GraphQLQueryResolver{
 	private MethodRepository methodRepository;
 	private InvocationRepository invocationRepository;
 	
-	public QuerySession(SessionRepository sessionRepository, TypeRepository typeRepository, MethodRepository methodRepository, InvocationRepository invocationRepository) {
+	public QuerySession(SessionRepository sessionRepository) {
 		this.sessionRepository = sessionRepository;
-		this.typeRepository = typeRepository;
-		this.methodRepository = methodRepository;
-		this.invocationRepository = invocationRepository;
 	}
 
     public Iterable<Session> sessionsByTaskIdAndDeveloperId(Long taskId, Long developerId){

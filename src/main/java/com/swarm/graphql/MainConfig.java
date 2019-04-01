@@ -65,8 +65,8 @@ public class MainConfig {
 	}
 	
 	@Bean
-	public QueryBreakpoint queryBreakPoint(BreakpointRepository breakpointRepository, ProductRepository productRepository) {
-		return new QueryBreakpoint(breakpointRepository, productRepository);
+	public QueryBreakpoint queryBreakPoint(BreakpointRepository breakpointRepository) {
+		return new QueryBreakpoint(breakpointRepository);
 	}
 	
 	@Bean
@@ -80,8 +80,8 @@ public class MainConfig {
 	}
 	
 	@Bean
-	public QueryProduct queryProduct(ProductRepository productRepository, InvocationRepository invocationRepository, TypeRepository typeRepository) {
-		return new QueryProduct(productRepository, invocationRepository, typeRepository);
+	public QueryProduct queryProduct(ProductRepository productRepository) {
+		return new QueryProduct(productRepository);
 	}
 
 	@Bean
@@ -90,8 +90,8 @@ public class MainConfig {
 	}
 
 	@Bean
-	public QuerySession querySession(SessionRepository sessionRepository, TypeRepository typeRepository, MethodRepository methodRepository, InvocationRepository invocationRepository) {
-		return new QuerySession(sessionRepository, typeRepository, methodRepository, invocationRepository);
+	public QuerySession querySession(SessionRepository sessionRepository) {
+		return new QuerySession(sessionRepository);
 	}
 
 	@Bean

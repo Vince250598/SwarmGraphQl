@@ -17,10 +17,8 @@ public class QueryProduct implements GraphQLQueryResolver{
 	private InvocationRepository invocationRepository;
 	private TypeRepository typeRepository;
 	
-	public QueryProduct(ProductRepository productRepository, InvocationRepository invocationRepository, TypeRepository typeRepository) {
+	public QueryProduct(ProductRepository productRepository) {
 		this.productRepository = productRepository;
-		this.invocationRepository = invocationRepository;
-		this.typeRepository = typeRepository;
 	}
 	
 	public String getProductPaths(Long productId) {

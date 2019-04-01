@@ -13,9 +13,7 @@ public class QueryBreakpoint  implements GraphQLQueryResolver{
 	private BreakpointRepository breakpointRepository;
 	private ProductRepository productRepository;
 	
-	public QueryBreakpoint(BreakpointRepository breakpointRepository, ProductRepository productRepository) {
-		this.breakpointRepository = breakpointRepository;
-		this.productRepository = productRepository;
+	public QueryBreakpoint(BreakpointRepository breakpointRepository) {
 	}
 	
 	

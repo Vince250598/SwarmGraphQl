@@ -10,4 +10,8 @@ public class SwarmGraphQlApplication {
 		SpringApplication.run(SwarmGraphQlApplication.class, args);
 	}
 	
+	public static void stop() {
+		System.exit(0);
+	}
+	
 }

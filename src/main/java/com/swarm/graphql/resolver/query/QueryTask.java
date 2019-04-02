@@ -9,24 +9,20 @@ import java.util.Map.Entry;
 
 import com.coxautodev.graphql.tools.GraphQLQueryResolver;
 import com.swarm.graphql.model.Breakpoint;
-import com.swarm.graphql.model.Session;
 import com.swarm.graphql.model.Task;
 import com.swarm.graphql.model.Type;
 import com.swarm.graphql.repository.BreakpointRepository;
-import com.swarm.graphql.repository.SessionRepository;
 import com.swarm.graphql.repository.TaskRepository;
 import com.swarm.graphql.repository.TypeRepository;
 
 public class QueryTask  implements GraphQLQueryResolver{
 	
 	private TaskRepository taskRepository;
-	private SessionRepository sessionRepository;
 	private TypeRepository typeRepository;
 	private BreakpointRepository breakpointRepository;
 	
-	public QueryTask(TaskRepository taskRepository, SessionRepository sessionRepository, TypeRepository typeRepository, BreakpointRepository breakpointRepository) {
+	public QueryTask(TaskRepository taskRepository, TypeRepository typeRepository, BreakpointRepository breakpointRepository) {
 		this.taskRepository = taskRepository;
-		this.sessionRepository = sessionRepository;
 		this.typeRepository = typeRepository;
 		this.breakpointRepository = breakpointRepository;
 	}

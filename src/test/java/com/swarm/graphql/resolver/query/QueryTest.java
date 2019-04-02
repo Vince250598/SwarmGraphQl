@@ -11,15 +11,12 @@ import com.swarm.graphql.SwarmGraphQlApplication;
 
 import outils.JsonReader;
 
- 
 public class QueryTest {
-
-	
-	private SwarmGraphQlApplication serveur;
 	
 	@Before
 	public final void lancement() {
-		new SwarmGraphQlApplication().main(new String[0]);
+		new SwarmGraphQlApplication();
+		SwarmGraphQlApplication.main(new String[0]);
 	}
 	
 	@Test
@@ -33,12 +30,11 @@ public class QueryTest {
 		System.out.println(data);
 		assertTrue(resultVoulut.toString().equals(data.toString()));
 
-		
 	}
 	
 	@After(value = "fermeture")
 	public final void close() {
-		serveur.stop();
+		SwarmGraphQlApplication.stop();
 	}
 
 }

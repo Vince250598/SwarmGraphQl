@@ -10,8 +10,9 @@ public class QueryMethod implements GraphQLQueryResolver {
 	private MethodRepository methodRepository;
 	private SessionRepository sessionRepository;
 	
-	public QueryMethod(MethodRepository methodRepository) {
+	public QueryMethod(MethodRepository methodRepository, SessionRepository sessionRepository) {
 		this.methodRepository = methodRepository;
+		this.sessionRepository = sessionRepository;
 	}
     
     public Iterable<Method> methodsByTypeId(Long typeId){

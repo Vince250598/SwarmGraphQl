@@ -65,8 +65,8 @@ public class MainConfig {
 	}
 	
 	@Bean
-	public QueryBreakpoint queryBreakPoint(BreakpointRepository breakpointRepository) {
-		return new QueryBreakpoint(breakpointRepository);
+	public QueryBreakpoint queryBreakPoint(BreakpointRepository breakpointRepository, ProductRepository productRepository) {
+		return new QueryBreakpoint(breakpointRepository, productRepository);
 	}
 	
 	@Bean
@@ -75,13 +75,13 @@ public class MainConfig {
 	}
 	
 	@Bean
-	public QueryTask queryTask(TaskRepository taskRepository, SessionRepository sessionRepository, TypeRepository typeRepository, BreakpointRepository breakpointRepository) {
-		return new QueryTask(taskRepository, sessionRepository, typeRepository, breakpointRepository);
+	public QueryTask queryTask(TaskRepository taskRepository, TypeRepository typeRepository, BreakpointRepository breakpointRepository) {
+		return new QueryTask(taskRepository, typeRepository, breakpointRepository);
 	}
 	
 	@Bean
-	public QueryProduct queryProduct(ProductRepository productRepository) {
-		return new QueryProduct(productRepository);
+	public QueryProduct queryProduct(ProductRepository productRepository, InvocationRepository invocationRepository, TypeRepository typeRepository) {
+		return new QueryProduct(productRepository, invocationRepository, typeRepository);
 	}
 
 	@Bean
@@ -90,8 +90,8 @@ public class MainConfig {
 	}
 
 	@Bean
-	public QuerySession querySession(SessionRepository sessionRepository) {
-		return new QuerySession(sessionRepository);
+	public QuerySession querySession(SessionRepository sessionRepository, TypeRepository typeRepository, MethodRepository methodRepository, InvocationRepository invocationRepository) {
+		return new QuerySession(sessionRepository, typeRepository, methodRepository, invocationRepository);
 	}
 
 	@Bean
@@ -105,8 +105,8 @@ public class MainConfig {
 	}
 	
 	@Bean
-	public QueryMethod queryMethod(MethodRepository methodRepository) {
-		return new QueryMethod(methodRepository);
+	public QueryMethod queryMethod(MethodRepository methodRepository, SessionRepository sessionRepository) {
+		return new QueryMethod(methodRepository, sessionRepository);
 	}
 
 	@Bean

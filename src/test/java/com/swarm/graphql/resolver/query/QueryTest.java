@@ -32,9 +32,5 @@ public class QueryTest {
 
 	}
 	
-	@After(value = "fermeture")
-	public final void close() {
-		SwarmGraphQlApplication.stop();
-	}
 
 }

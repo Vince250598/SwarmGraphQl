@@ -80,8 +80,9 @@ public class MainConfig {
 	}
 	
 	@Bean
-	public QueryProduct queryProduct(ProductRepository productRepository, InvocationRepository invocationRepository, TypeRepository typeRepository) {
-		return new QueryProduct(productRepository, invocationRepository, typeRepository);
+
+	public QueryProduct queryProduct(ProductRepository productRepository,InvocationRepository invocationRepository,TypeRepository typeRepository) {
+		return new QueryProduct(productRepository,  invocationRepository, typeRepository);
 	}
 
 	@Bean

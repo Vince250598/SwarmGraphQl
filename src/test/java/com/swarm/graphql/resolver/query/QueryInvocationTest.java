@@ -34,10 +34,6 @@ public class QueryInvocationTest {
 	    
 		assertTrue(expectedIdResult.equals(id));
 	}
-	
-	@After(value = "fermeture")
-	public final void close() {
-		SwarmGraphQlApplication.stop();
-	}
+
 
 }

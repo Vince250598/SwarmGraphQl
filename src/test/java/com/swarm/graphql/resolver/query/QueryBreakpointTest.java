@@ -37,29 +37,76 @@ public class QueryBreakpointTest {
 	public final void testAllBreakpoints() throws IOException, JSONException {
 		
 		
-		Developer developer1 = new Developer("developer1.name", "developer1.color");
-		Developer developer2 = new Developer("developer2.name", "developer2.color");
 		
-		Product product1 = new Product("product1.name");
-		Product product2 = new Product("product2.name");
-		
-		Task task1 = new Task(product1, "task1.title","task1.url","task1.color");
-		Task task2 = new Task(product2, "task2.title","task2.url","task2.color");
-		
-		Date date = new Date();
-		
-		Session session1 = new Session(developer1, task1, "session1.description", "session1.label","session1.purpose","session1.project",date,date);
-		Session session2 = new Session(developer2, task2, "session2.description", "session2.label","session2.purpose","session2.project",date,date);
-		
-		Namespace namespace1 = new Namespace("namespace1.name","namespace1.fullPath");
-		Namespace namespace2 = new Namespace("namespace2.name","namespace2.fullPath");
-		
-		Type type1 = new Type(namespace1, session1, "type1.fullName","type1.fullPath", "type1.name","type1.source");
-		Type type2 = new Type(namespace2, session2, "type2.fullName","type2.fullPath", "type2.name","type2.source");
-		
-		Breakpoint breakpoint1 = new Breakpoint(type1,"breakpoint1.start","breakpoint1.end",59);
-		Breakpoint breakpoint2 = new Breakpoint(type2,"breakpoint2.start","breakpoint2.end",374);
-		
+		String valOutCorect = "{\"allBreakpoints\":["
+				+ "{\"charStart\":\"breakpoint1.start\","
+				+ "\"charEnd\":\"breakpoint1.end\","
+				+ "\"id\":\"1\","
+				+ "\"type\":"
+					+ "{\"fullPath\":\"type1.fullPath\","
+					+ "\"session\":{"
+						+ "\"task\":{\"product\":{"
+							+ "\"name\":\"product1.name\","
+							+ "\"id\":\"1\"},"
+						+ "\"color\":\"task1.color\","
+						+ "\"id\":\"1\","
+						+ "\"title\":\"task1.title\","
+						+ "\"url\":\"task1.url\"},"
+					+ "\"purpose\":\"session1.purpose\","
+					+ "\"description\":\"session1.description\","
+					+ "\"project\":\"session1.project\","
+					+ "\"developer\":{"
+						+ "\"color\":\"developer1.color\","
+						+ "\"name\":\"developer1.name\","
+						+ "\"id\":\"1\"},"
+					+ "\"started\":\"03-avr.-2019\","
+					+ "\"finished\":\"03-avr.-2019\","
+					+ "\"id\":\"1\","
+					+ "\"label\":\"session1.label\"},"
+				+ "\"namespace\":{"
+					+ "\"fullPath\":\"namespace1.fullPath\","
+					+ "\"name\":\"namespace1.name\","
+					+ "\"id\":\"1\"},"
+				+ "\"name\":\"type1.name\","
+				+ "\"fullName\":\"type1.fullName\","
+				+ "\"id\":\"1\","
+				+ "\"source\":\"type1.source\"},"
+				+ "\"lineNumber\":59},"
+				+ ""
+				+ "{\"charStart\":\"breakpoint2.start\","
+				+ "\"charEnd\":\"breakpoint2.end\","
+				+ "\"id\":\"2\","
+				+ "\"type\":{"
+					+ "\"fullPath\":\"type2.fullPath\","
+					+ "\"session\":{"
+						+ "\"task\":{"
+							+ "\"product\":{"
+								+ "\"name\":\"product2.name\","
+								+ "\"id\":\"2\"},"
+							+ "\"color\":\"task2.color\","
+							+ "\"id\":\"2\","
+							+ "\"title\":\"task2.title\","
+							+ "\"url\":\"task2.url\"},"
+						+ "\"purpose\":\"session2.purpose\","
+						+ "\"description\":\"session2.description\","
+						+ "\"project\":\"session2.project\","
+						+ "\"developer\":{"
+							+ "\"color\":\"developer2.color\","
+							+ "\"name\":\"developer2.name\","
+							+ "\"id\":\"2\"},"
+						+ "\"started\":\"03-avr.-2019\","
+						+ "\"finished\":\"03-avr.-2019\","
+						+ "\"id\":\"2\","
+						+ "\"label\":\"session2.label\"}"
+					+ ",\"namespace\":{"
+						+ "\"fullPath\":\"namespace2.fullPath\","
+						+ "\"name\":\"namespace2.name\","
+						+ "\"id\":\"2\"},"
+					+ "\"name\":\"type2.name\","
+					+ "\"fullName\":\"type2.fullName\","
+					+ "\"id\":\"2\","
+					+ "\"source\":\"type2.source\"}"
+				+ ",\"lineNumber\":374}]}";
 		
 		
 		JSONObject json = JsonReader.readJsonFromUrl("http://localhost:8080/graphql?query=%7B" + 
@@ -109,7 +156,9 @@ public class QueryBreakpointTest {
 		
 		//System.out.println(json.toString());
 		JSONObject data = json.getJSONObject("data");
-		System.out.println(data.toString());
+		//System.out.println(data.toString());
+		//System.out.println(valOutCorect);
+		assertTrue(valOutCorect.equals(data.toString()));
 		
 		
 	}	

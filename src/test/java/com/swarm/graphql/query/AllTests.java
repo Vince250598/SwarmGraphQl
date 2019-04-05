@@ -4,9 +4,16 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
-@RunWith(Suite.class)
-@SuiteClasses({ QueryBreakpointTest.class, QueryInvocationTest.class, QueryMethodTest.class, QueryNamespaceTest.class,
-		QuerySessionTest.class, QueryTaskTest.class, QueryTest.class, QueryTypeTest.class })
-public class AllTests {
+import com.swarm.graphql.SwarmGraphQlApplication;
 
+@RunWith(Suite.class)
+@Suite.SuiteClasses({ QueryBreakpointTest.class,
+	QueryInvocationTest.class,
+	QueryMethodTest.class,
+	QueryNamespaceTest.class,
+	QuerySessionTest.class,
+	QueryTaskTest.class,
+	QueryTest.class,
+	QueryTypeTest.class })
+public class AllTests {
 }

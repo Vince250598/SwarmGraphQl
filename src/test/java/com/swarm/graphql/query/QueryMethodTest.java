@@ -15,14 +15,15 @@ import com.swarm.graphql.SwarmGraphQlApplication;
 import outils.JsonReader;
 
 public class QueryMethodTest {
-
+/*
 	public final void lancement() {
 		new SwarmGraphQlApplication();
 		SwarmGraphQlApplication.main(new String[0]);
 	}
-
+*/
 	@Test
 	public final void testMethodsByTypeId() throws IOException, JSONException {
+		System.out.println("testMethodsByTypeId");
 		JSONObject json = JsonReader.readJsonFromUrl("http://localhost:8080/graphql?query=%7BmethodsByTypeId(typeId:1)%7Bid%7D%7D");
 		JSONObject data = json.getJSONObject("data");
 		JSONArray methodsByTypeId = data.getJSONArray("methodsByTypeId");
@@ -30,12 +31,12 @@ public class QueryMethodTest {
 	    
 	    String expectedIdResult = "1";
 	    
-		assertTrue(expectedIdResult.equals(id));
+		assertEquals(expectedIdResult,id);
 	}
 	
 	@Test
 	public final void testStartingMethodsBySessionId() throws IOException, JSONException {
-		lancement();
+		System.out.println("testStartingMethodsBySessionId");
 		JSONObject json = JsonReader.readJsonFromUrl("http://localhost:8080/graphql?query=%7BstartingMethodsBySessionId(sessionId:1)%7Bid%7D%7D");
 		JSONObject data = json.getJSONObject("data");
 		JSONArray startingMethodsBySessionId = data.getJSONArray("startingMethodsBySessionId");
@@ -43,11 +44,12 @@ public class QueryMethodTest {
 	    
 	    String expectedIdResult = "1";
 	    
-		assertTrue(expectedIdResult.equals(id));
+	    assertEquals(expectedIdResult,id);
 	}
 	
 	@Test
 	public final void testEndingMethodsBySessionId() throws IOException, JSONException {
+		System.out.println("testEndingMethodsBySessionId");
 		JSONObject json = JsonReader.readJsonFromUrl("http://localhost:8080/graphql?query=%7BendingMethodsBySessionId(sessionId:2)%7Bid%7D%7D");
 		JSONObject data = json.getJSONObject("data");
 		JSONArray endingMethodsBySessionId = data.getJSONArray("endingMethodsBySessionId");
@@ -55,7 +57,7 @@ public class QueryMethodTest {
 	    
 	    String expectedIdResult = "2";
 	    
-		assertTrue(expectedIdResult.equals(id));
+	    assertEquals(expectedIdResult,id);
 	}
 	
 

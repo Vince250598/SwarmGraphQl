@@ -12,18 +12,20 @@ import org.junit.Test;
 
 import com.swarm.graphql.SwarmGraphQlApplication;
 
+import graphql.AssertException;
 import outils.JsonReader;
 
 public class QueryNamespaceTest {
-
+/*
 	@Before
 	public final void lancement() {
 		new SwarmGraphQlApplication();
 		SwarmGraphQlApplication.main(new String[0]);
 	}
-
+*/
 	@Test
 	public final void testNamespaceByFullPath() throws IOException, JSONException {
+		System.out.println("testNamespaceByFullPath");
 		JSONObject json = JsonReader.readJsonFromUrl("http://localhost:8080/graphql?query=%7BnamespaceByFullPath(fullPath:%22namespace1.fullPath%22)%7Bid%7D%7D");
 		JSONObject data = json.getJSONObject("data");
 	    JSONObject namespaceByFullPath = data.getJSONObject("namespaceByFullPath");
@@ -31,7 +33,7 @@ public class QueryNamespaceTest {
 	    
 	    String expectedIdResult = "1";
 	    
-		assertTrue(expectedIdResult.equals(id));
+		assertEquals(expectedIdResult,id);
 	}
 
 }

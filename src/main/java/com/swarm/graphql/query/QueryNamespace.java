@@ -1,4 +1,4 @@
-package com.swarm.graphql.resolver.query;
+package com.swarm.graphql.query;
 
 import com.coxautodev.graphql.tools.GraphQLQueryResolver;
 import com.swarm.graphql.model.Namespace;

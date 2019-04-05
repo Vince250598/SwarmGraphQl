@@ -1,4 +1,4 @@
-package com.swarm.graphql.resolver.query;
+package com.swarm.graphql.query;
 
 import static org.junit.Assert.assertTrue;
 

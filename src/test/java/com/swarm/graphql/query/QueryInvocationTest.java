@@ -1,9 +1,10 @@
-package com.swarm.graphql.resolver.query;
+package com.swarm.graphql.query;
 
 import static org.junit.Assert.*;
 
 import java.io.IOException;
 
+import org.aspectj.lang.annotation.After;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -14,8 +15,8 @@ import com.swarm.graphql.SwarmGraphQlApplication;
 
 import outils.JsonReader;
 
-public class QueryNamespaceTest {
-
+public class QueryInvocationTest {
+	
 	@Before
 	public final void lancement() {
 		new SwarmGraphQlApplication();
@@ -23,11 +24,11 @@ public class QueryNamespaceTest {
 	}
 
 	@Test
-	public final void testNamespaceByFullPath() throws IOException, JSONException {
-		JSONObject json = JsonReader.readJsonFromUrl("http://localhost:8080/graphql?query=%7BnamespaceByFullPath(fullPath:%22namespace1.fullPath%22)%7Bid%7D%7D");
+	public final void testInvocationsByMethods() throws IOException, JSONException {
+		JSONObject json = JsonReader.readJsonFromUrl("http://localhost:8080/graphql?query=%7BinvocationsByMethods(sessionId:1,invokingId:1,invokedId:2)%7Bid%7D%7D");
 		JSONObject data = json.getJSONObject("data");
-	    JSONObject namespaceByFullPath = data.getJSONObject("namespaceByFullPath");
-	    String id = namespaceByFullPath.getString("id");
+		JSONArray invocationsByMethods = data.getJSONArray("invocationsByMethods");
+	    String id = invocationsByMethods.getJSONObject(0).getString("id");
 	    
 	    String expectedIdResult = "1";
 	    

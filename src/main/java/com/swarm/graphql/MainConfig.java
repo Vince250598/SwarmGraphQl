@@ -7,19 +7,19 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.swarm.graphql.model.*;
+import com.swarm.graphql.query.Query;
+import com.swarm.graphql.query.QueryBreakpoint;
+import com.swarm.graphql.query.QueryDeveloper;
+import com.swarm.graphql.query.QueryEvent;
+import com.swarm.graphql.query.QueryInvocation;
+import com.swarm.graphql.query.QueryMethod;
+import com.swarm.graphql.query.QueryNamespace;
+import com.swarm.graphql.query.QueryProduct;
+import com.swarm.graphql.query.QuerySession;
+import com.swarm.graphql.query.QueryTask;
+import com.swarm.graphql.query.QueryType;
 import com.swarm.graphql.repository.*;
 import com.swarm.graphql.resolver.*;
-import com.swarm.graphql.resolver.query.Query;
-import com.swarm.graphql.resolver.query.QueryBreakpoint;
-import com.swarm.graphql.resolver.query.QueryDeveloper;
-import com.swarm.graphql.resolver.query.QueryEvent;
-import com.swarm.graphql.resolver.query.QueryInvocation;
-import com.swarm.graphql.resolver.query.QueryMethod;
-import com.swarm.graphql.resolver.query.QueryNamespace;
-import com.swarm.graphql.resolver.query.QueryProduct;
-import com.swarm.graphql.resolver.query.QuerySession;
-import com.swarm.graphql.resolver.query.QueryTask;
-import com.swarm.graphql.resolver.query.QueryType;
 
 @Configuration
 public class MainConfig {

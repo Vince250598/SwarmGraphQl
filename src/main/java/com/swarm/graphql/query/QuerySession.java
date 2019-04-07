@@ -21,6 +21,7 @@ public class QuerySession  implements GraphQLQueryResolver{
 	private TypeRepository typeRepository;
 	private MethodRepository methodRepository;
 	private InvocationRepository invocationRepository;
+	private StringBuffer graph;
 	
 	public QuerySession(SessionRepository sessionRepository, TypeRepository typeRepository, MethodRepository methodRepository, InvocationRepository invocationRepository) {
 		this.sessionRepository = sessionRepository;
@@ -40,89 +41,92 @@ public class QuerySession  implements GraphQLQueryResolver{
 	
 	
 	public String getGraphData(Session session, boolean addType, boolean closed) {
-		StringBuffer graph = new StringBuffer();
-		
+		graph = new StringBuffer();		
 		if(closed) { 
 			graph.append("[");
 		}
-
 		if(session != null) {
-			List<Type> types = typeRepository.findBySession(session);
-			for (Type type : types) {
-				int hash = type.getFullName().hashCode();
-				int r = (hash & 0xFF0000) >> 16;
-				int g = (hash & 0x00FF00) >> 8;
-				int b = hash & 0x0000FF;
-				
-				boolean newType = true;
-				List<Method> methods = methodRepository.findByType(type);
-				for(Method method : methods) {
-//					int hash = method.key.hashCode()
-//					int r = (hash & 0xFF0000) >> 16
-//					int g = (hash & 0x00FF00) >> 8
-//					int b = hash & 0x0000FF
-					
-					int invocations = invocationRepository.countInvocations(session, method);
-
-					if(invocations > 0) {
-						if(addType && newType) {
-							newType = false;
-							graph.append("{ \"group\": \"nodes\", ");
-							graph.append("\"data\": { \"id\": \"T" + type.getId() + "\", \"label\": \"" + type.getFullName() + "\", \"shape\": \"roundrectangle\", \"color\": \"#888\"}},");
-						}
-						
-						graph.append("{ \"group\": \"nodes\", ");
-						graph.append("\"data\": { \"id\": \"M" + method.getId() + "\", \"label\": \"" + type.getName() + ". " + method.getName() + "\", ");
-						graph.append("\"color\": \"" + String.format("#%02x%02x%02x", r, g, b) + "\"");
-						
-						if(addType) {
-							graph.append(",\"parent\": \"T" + type.getId() + "\"");
-						}
-
-						graph.append("}},");
-					}
-				}
-			}
-
-			List<Invocation> invocations = invocationRepository.findBySession(session);
-			
-
-			if(invocations.size() > 0) {
-				Map<String,String> labels = new HashMap<String,String>();
-				for(int i = 0; i < invocations.size(); i++) {
-					Invocation invocation = invocations.get(i);
-					String key = invocation.getInvoking().getId() + "->" + invocation.getInvoked().getId(); 
-					labels.put(key,(labels.get(key) != null ? labels.get(key) : "") + (i+1) + ",");
-				}
-
-				for (Invocation invocation : invocations) {
-					String key = invocation.getInvoking().getId() + "->" + invocation.getInvoked().getId();
-					if(labels.containsKey(key)) {
-						String label = labels.get(key).substring(0,labels.get(key).length() - 1);
-						
-						graph.append("{ \"group\": \"edges\", ");
-						graph.append("\"data\":{ \"id\": \"I" + invocation.getId() + "\", " );
-						graph.append("\"source\": " + "\"M" + invocation.getInvoking().getId() + "\", ");
-						graph.append("\"target\": " + "\"M" + invocation.getInvoked().getId() + "\", ");
-						graph.append("\"line-color\": " + "\"light-gray" + "\", ");
-						graph.append("\"target-arrow-color\": " + "\"light-gray" + "\", ");
-				        graph.append("\"label\": \"[" + (label.length() > 30 ? "*": label)   + "]\" }},");
-						labels.remove(key);
-					}
-				}
-			}
+			graphAddSession(session,addType,closed);
+			graphAddInvocation(session);
 		}
-
 		String output;
 		if(graph.length() > 2) {
 			output =  graph.substring(0, graph.length() - 1) + (closed ? "]" : "");
 		} else {
 			output = graph.toString() + (closed ? "]" : "");
 		}
-
 		return output;
+}
+	
+	private void graphAddSession(Session session, boolean addType, boolean closed){
+		List<Type> types = typeRepository.findBySession(session);
+		for (Type type : types) {								
+			int hash = type.getFullName().hashCode();
+			int r = (hash & 0xFF0000) >> 16;
+			int g = (hash & 0x00FF00) >> 8;
+			int b = hash & 0x0000FF;			
+			boolean newType = true;
+			graphAddSessionAddMethod(type,addType,newType,session,r,g,b);
+		}
+	}
+
+	
+	private void graphAddSessionAddMethod(Type type, boolean addType, boolean newType, Session session, int r, int g, int b) {
+		List<Method> methods = methodRepository.findByType(type);
+		for(Method method : methods) {					
+			int invocations = invocationRepository.countInvocations(session, method);
+			if(invocations > 0) {
+				if(addType && newType) {
+					newType = false;
+					graphAddSessionAddType(type);
+				}
+				graph.append("{ \"group\": \"nodes\", ");
+				graph.append("\"data\": { \"id\": \"M" + method.getId() + "\", \"label\": \"" + type.getName() + ". " + method.getName() + "\", ");
+				graph.append("\"color\": \"" + String.format("#%02x%02x%02x", r, g, b) + "\"");				
+				if(addType) {
+					graph.append(",\"parent\": \"T" + type.getId() + "\"");
+				}
+				graph.append("}},");
+			}
+		}
 	}
 	
+	private void graphAddSessionAddType(Type type) {
+		graph.append("{ \"group\": \"nodes\", ");
+		graph.append("\"data\": { \"id\": \"T" + type.getId() + "\", \"label\": \"" + type.getFullName() + "\", \"shape\": \"roundrectangle\", \"color\": \"#888\"}},");		
+	}
+	
+	private void graphAddInvocation(Session session) {
+		List<Invocation> invocations = invocationRepository.findBySession(session);
+		if(invocations.size() > 0) {
+			Map<String,String> labels = new HashMap<String,String>();
+			for(int i = 0; i < invocations.size(); i++) {
+				Invocation invocation = invocations.get(i);
+				String key = invocation.getInvoking().getId() + "->" + invocation.getInvoked().getId(); 
+				labels.put(key,(labels.get(key) != null ? labels.get(key) : "") + (i+1) + ",");
+			}
+			for (Invocation invocation : invocations) {
+				labels = graphAddInvocationAddString(invocation,labels);
+			}
+		}
+	}
+	
+	
+	private Map<String, String> graphAddInvocationAddString(Invocation invocation, Map<String, String> labels) {
+		String key = invocation.getInvoking().getId() + "->" + invocation.getInvoked().getId();
+		if(labels.containsKey(key)) {
+			String label = labels.get(key).substring(0,labels.get(key).length() - 1);					
+			graph.append("{ \"group\": \"edges\", ");
+			graph.append("\"data\":{ \"id\": \"I" + invocation.getId() + "\", " );
+			graph.append("\"source\": " + "\"M" + invocation.getInvoking().getId() + "\", ");
+			graph.append("\"target\": " + "\"M" + invocation.getInvoked().getId() + "\", ");
+			graph.append("\"line-color\": " + "\"light-gray" + "\", ");
+			graph.append("\"target-arrow-color\": " + "\"light-gray" + "\", ");
+	        graph.append("\"label\": \"[" + (label.length() > 30 ? "*": label)   + "]\" }},");
+			labels.remove(key);
+		}
+		return labels;
+	}
 	
 	public  String getStackData(Long sessionId) {
 		StringBuffer graph = new StringBuffer();

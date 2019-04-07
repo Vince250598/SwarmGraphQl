@@ -1,6 +1,4 @@
 package com.swarm.graphql.query;
-import java.util.concurrent.TimeUnit;
-
 import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;

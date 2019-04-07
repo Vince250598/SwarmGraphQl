@@ -12,4 +12,5 @@ before_install:
   - chmod +x mvnw
 
 os:
-  - Linux
+  - windows
+  - linux

@@ -8,4 +8,3 @@ os:
  include:
     - stage: test
       script: .\src\test\java\com\swarm\graphql\query\TestRunner.java
-    - # stage name not required, will continue to use `test`

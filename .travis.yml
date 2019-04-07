@@ -2,9 +2,3 @@ language: java
 
 os:
   - windows
-  - linux
-  
- jobs:
- include:
-    - stage: test
-      script: .\src\test\java\com\swarm\graphql\query\TestRunner.java

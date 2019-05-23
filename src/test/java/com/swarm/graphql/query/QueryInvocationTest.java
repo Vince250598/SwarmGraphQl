@@ -1,4 +1,4 @@
-package com.swarm.graphql.query;
+/*package com.swarm.graphql.query;
 
 import static org.junit.Assert.*;
 
@@ -23,7 +23,7 @@ public class QueryInvocationTest {
 		SwarmGraphQlApplication.main(new String[0]);
 	}
 */
-	@Test
+	/*@Test
 	public final void testInvocationsByMethods() throws IOException, JSONException {
 		System.out.println("testInvocationsByMethods");
 		JSONObject json = JsonReader.readJsonFromUrl("http://localhost:8080/graphql?query=%7BinvocationsByMethods(sessionId:1,invokingId:1,invokedId:2)%7Bid%7D%7D");
@@ -36,4 +36,4 @@ public class QueryInvocationTest {
 		assertEquals(expectedIdResult,id);
 	}
 
-}
+}*/

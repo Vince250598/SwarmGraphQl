@@ -8,10 +8,8 @@ import org.springframework.data.repository.query.Param;
 import com.swarm.graphql.model.Developer;
 
 public interface DeveloperRepository extends CrudRepository<Developer, Long> {
-	
-	Developer findById(@Param("id") Long id);
+
 	Developer findByNameAllIgnoringCase(@Param("name") String name);
 
 	Page<Developer> findByName(@Param("name") String name, Pageable pageable);
-
 }

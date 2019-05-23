@@ -2,11 +2,17 @@ package com.swarm.graphql.model;
 
 import java.util.Calendar;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
 
 @Entity
 public class Type {
-	
+
 	@Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
@@ -26,22 +32,21 @@ public class Type {
 	@Column(nullable = false)
 	String name;
 	
-	@Column(length = 1000000)
-	String source;
-	
+	@ManyToOne
+	private Artefact artefact;
+
 	@Column(name="CREATION_TS", columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable=false, updatable=false)
 	private Calendar timestamp;
 	
-	public Type() {
-	}
+	public Type () {}
 	
-	public Type(Namespace namespace, Session session, String fullName, String fullPath, String name, String source) {
+	public Type(Namespace namespace, Session session, String fullName, String fullPath, String name, Artefact artefact) {
 		this.namespace = namespace;
 		this.session = session;
 		this.fullName = fullName;
 		this.fullPath = fullPath;
 		this.name = name;
-		this.source = source;
+		this.artefact = artefact;
 	}
 	
 	public Long getId() {
@@ -92,12 +97,12 @@ public class Type {
 		this.name = name;
 	}
 
-	public String getSource() {
-		return source;
+	public Artefact getArtefact() {
+		return artefact;
 	}
 
-	public void setSource(String source) {
-		this.source = source;
+	public void setArtefact(Artefact artefact) {
+		this.artefact = artefact;
 	}
 	
 	@Override
@@ -119,5 +124,5 @@ public class Type {
     public String toString() {
 		return id + ": " + fullName;
 	}
-
+	
 }

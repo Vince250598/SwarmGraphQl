@@ -1,4 +1,4 @@
-package com.swarm.graphql.query;
+/*package com.swarm.graphql.query;
 
 import static org.junit.Assert.*;
 
@@ -21,7 +21,7 @@ public class QuerySessionTest {
 		SwarmGraphQlApplication.main(new String[0]);
 	}
 */
-	@Test
+	/*@Test
 	public final void testSessionsByTaskIdAndDeveloperId() throws IOException, JSONException {
 		
 		System.out.println("testSessionsByTaskIdAndDeveloperId");
@@ -95,4 +95,4 @@ public class QuerySessionTest {
 	    assertEquals(expectedIdResult,result);
 	}
 
-}
+}*/

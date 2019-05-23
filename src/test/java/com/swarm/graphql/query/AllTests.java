@@ -1,4 +1,4 @@
-package com.swarm.graphql.query;
+/*package com.swarm.graphql.query;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
@@ -16,4 +16,4 @@ import com.swarm.graphql.SwarmGraphQlApplication;
 	QueryTest.class,
 	QueryTypeTest.class })
 public class AllTests {
-}
+}*/

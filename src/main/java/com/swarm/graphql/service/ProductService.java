@@ -1,34 +1,40 @@
-package com.swarm.graphql.query;
+package com.swarm.graphql.service;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
-import com.coxautodev.graphql.tools.GraphQLQueryResolver;
+import org.springframework.stereotype.Service;
+
 import com.swarm.graphql.model.Invocation;
 import com.swarm.graphql.model.Product;
 import com.swarm.graphql.repository.InvocationRepository;
 import com.swarm.graphql.repository.ProductRepository;
 import com.swarm.graphql.repository.TypeRepository;
 
-public class QueryProduct implements GraphQLQueryResolver{
+import io.leangen.graphql.annotations.GraphQLQuery;
+import io.leangen.graphql.spqr.spring.annotation.GraphQLApi;
+
+@GraphQLApi
+@Service
+public class ProductService {
 	
 	private ProductRepository productRepository;
 	private InvocationRepository invocationRepository;
 	private TypeRepository typeRepository;
 	
-
-	public QueryProduct(ProductRepository productRepository,InvocationRepository invocationRepository,TypeRepository typeRepository) {
-
+	public ProductService(ProductRepository productRepository, InvocationRepository invocationRepository, TypeRepository typeRepository) {
 		this.productRepository = productRepository;
 		this.invocationRepository = invocationRepository;
 		this.typeRepository = typeRepository;
 	}
 	
+	@GraphQLQuery(name = "getProductPaths")
 	public String getProductPaths(Long productId) {
 		StringBuffer graph = new StringBuffer("[");
 
-		Product product = productRepository.findOne(productId);
+		Optional<Product> product = productRepository.findById(productId);
 		
 		if(product != null) {
 			List<Invocation> invocations = invocationRepository.findByProduct(product);

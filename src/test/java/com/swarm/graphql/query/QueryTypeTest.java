@@ -1,4 +1,4 @@
-package com.swarm.graphql.query;
+/*package com.swarm.graphql.query;
 
 import static org.junit.Assert.*;
 
@@ -30,3 +30,4 @@ public class QueryTypeTest {
 	}
 
 }
+*/

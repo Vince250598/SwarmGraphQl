@@ -1,4 +1,4 @@
-package com.swarm.graphql.query;
+/*package com.swarm.graphql.query;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -24,7 +24,7 @@ public class QueryBreakpointTest {
 		new SwarmGraphQlApplication().main(new String[0]);
 	}
 */
-	@Test
+	/*@Test
 	public final void testAllBreakpoints() throws IOException, JSONException {
 		
 		System.out.println("testAllBreakpoints");
@@ -48,3 +48,4 @@ public class QueryBreakpointTest {
 	}	
 	
 }
+*/

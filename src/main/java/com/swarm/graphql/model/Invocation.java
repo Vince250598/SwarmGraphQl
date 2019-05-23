@@ -2,11 +2,18 @@ package com.swarm.graphql.model;
 
 import java.util.Calendar;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
+
 
 @Entity
 public class Invocation {
-	
+
 	@Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
@@ -26,8 +33,7 @@ public class Invocation {
 	@Transient
 	private boolean isVirtual;
 	
-	public Invocation() {
-	}
+	public Invocation () {}
 	
 	public Invocation(Method invoking, Method invoked, Session session, boolean isVirtual) {
 		this.invoking = invoking;
@@ -95,5 +101,5 @@ public class Invocation {
 	public String toString() {
 		return invoking.getId() + ": " + invoking.getKey() + " -> " + invoked.getId() + ": " + invoked.getKey();
 	}
-
+	
 }

@@ -1,13 +1,13 @@
-package com.swarm.graphql.query;
+package com.swarm.graphql.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.Map.Entry;
 
-import com.coxautodev.graphql.tools.GraphQLQueryResolver;
+import org.springframework.stereotype.Service;
+
 import com.swarm.graphql.model.Breakpoint;
 import com.swarm.graphql.model.Task;
 import com.swarm.graphql.model.Type;
@@ -15,28 +15,38 @@ import com.swarm.graphql.repository.BreakpointRepository;
 import com.swarm.graphql.repository.TaskRepository;
 import com.swarm.graphql.repository.TypeRepository;
 
-public class QueryTask  implements GraphQLQueryResolver{
-	
+import io.leangen.graphql.annotations.GraphQLQuery;
+import io.leangen.graphql.spqr.spring.annotation.GraphQLApi;
+
+import java.util.Map.Entry;
+import java.util.Optional;
+
+@Service
+@GraphQLApi
+public class TaskService {
+
 	private TaskRepository taskRepository;
 	private TypeRepository typeRepository;
 	private BreakpointRepository breakpointRepository;
 	
-	public QueryTask(TaskRepository taskRepository, TypeRepository typeRepository, BreakpointRepository breakpointRepository) {
+	public TaskService(TaskRepository taskRepository, TypeRepository typeRepository, BreakpointRepository breakpointRepository) {
 		this.taskRepository = taskRepository;
 		this.typeRepository = typeRepository;
 		this.breakpointRepository = breakpointRepository;
 	}
 
+	@GraphQLQuery
     public Iterable<Task> allTasks() {
         return taskRepository.findAll();
     }
 	
+	@GraphQLQuery(name = "getBreakpointGraphData")
 	public String getBreakpointGraphData(Long taskId) {
 		return getBreakpointGraphData(taskId, true);
 	}
 	
 	public String getBreakpointGraphData(Long taskId, boolean closed) {
-		Task task = taskRepository.findOne(taskId);
+		Optional<Task> task = taskRepository.findById(taskId);
 		if (task == null) {
 			return "[]";
 		}
@@ -138,5 +148,4 @@ public class QueryTask  implements GraphQLQueryResolver{
 		
 		return nodes;
 	}
-
 }

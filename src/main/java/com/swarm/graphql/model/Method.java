@@ -2,11 +2,17 @@ package com.swarm.graphql.model;
 
 import java.util.Calendar;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
 
 @Entity
 public class Method {
-	
+
 	@Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
@@ -26,8 +32,7 @@ public class Method {
 	@Column(name="CREATION_TS", columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable=false, updatable=false)
 	private Calendar timestamp;
 	
-	public Method() {
-	}
+	public Method () {}
 	
 	public Method(Type type, String key, String name, String signature) {
 		this.type = type;
@@ -95,5 +100,5 @@ public class Method {
 	public String toString() {
 		return type.getFullName() +"." +  this.name;
 	}
-
+	
 }

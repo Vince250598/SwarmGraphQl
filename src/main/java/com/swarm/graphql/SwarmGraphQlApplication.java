@@ -9,4 +9,5 @@ public class SwarmGraphQlApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(SwarmGraphQlApplication.class, args);
 	}
+
 }

@@ -1,11 +1,13 @@
-package com.swarm.graphql.query;
+package com.swarm.graphql.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
-import com.coxautodev.graphql.tools.GraphQLQueryResolver;
+import org.springframework.stereotype.Service;
+
 import com.swarm.graphql.model.Invocation;
 import com.swarm.graphql.model.Method;
 import com.swarm.graphql.model.Session;
@@ -15,7 +17,12 @@ import com.swarm.graphql.repository.MethodRepository;
 import com.swarm.graphql.repository.SessionRepository;
 import com.swarm.graphql.repository.TypeRepository;
 
-public class QuerySession  implements GraphQLQueryResolver{
+import io.leangen.graphql.annotations.GraphQLQuery;
+import io.leangen.graphql.spqr.spring.annotation.GraphQLApi;
+
+@GraphQLApi
+@Service
+public class SessionService {
 	
 	private SessionRepository sessionRepository;
 	private TypeRepository typeRepository;
@@ -23,24 +30,26 @@ public class QuerySession  implements GraphQLQueryResolver{
 	private InvocationRepository invocationRepository;
 	private StringBuffer graph;
 	
-	public QuerySession(SessionRepository sessionRepository, TypeRepository typeRepository, MethodRepository methodRepository, InvocationRepository invocationRepository) {
+	public SessionService(SessionRepository sessionRepository, TypeRepository typeRepository, MethodRepository methodRepository, InvocationRepository invocationRepository) {
 		this.sessionRepository = sessionRepository;
 		this.typeRepository = typeRepository;
 		this.methodRepository = methodRepository;
 		this.invocationRepository = invocationRepository;
 	}
 
-    public Iterable<Session> sessionsByTaskIdAndDeveloperId(Long taskId, Long developerId){
+	@GraphQLQuery
+	public Iterable<Session> sessionsByTaskIdAndDeveloperId(Long taskId, Long developerId){
     	return sessionRepository.findByTaskAndDeveloper(taskId, developerId);
     }
     
+	@GraphQLQuery(name = "getGraphData")
     public String getGraphData(Long sessionId, boolean addType) {
-		Session session = sessionRepository.findOne(sessionId);
+		Optional<Session> session = sessionRepository.findById(sessionId);
 		return getGraphData(session, addType, true);
 	}
 	
 	
-	public String getGraphData(Session session, boolean addType, boolean closed) {
+	public String getGraphData(Optional<Session> session, boolean addType, boolean closed) {
 		graph = new StringBuffer();		
 		if(closed) { 
 			graph.append("[");
@@ -56,9 +65,9 @@ public class QuerySession  implements GraphQLQueryResolver{
 			output = graph.toString() + (closed ? "]" : "");
 		}
 		return output;
-}
+	}
 	
-	private void graphAddSession(Session session, boolean addType, boolean closed){
+	private void graphAddSession(Optional<Session> session, boolean addType, boolean closed){
 		List<Type> types = typeRepository.findBySession(session);
 		for (Type type : types) {								
 			int hash = type.getFullName().hashCode();
@@ -69,9 +78,8 @@ public class QuerySession  implements GraphQLQueryResolver{
 			graphAddSessionAddMethod(type,addType,newType,session,r,g,b);
 		}
 	}
-
 	
-	private void graphAddSessionAddMethod(Type type, boolean addType, boolean newType, Session session, int r, int g, int b) {
+	private void graphAddSessionAddMethod(Type type, boolean addType, boolean newType, Optional<Session> session, int r, int g, int b) {
 		List<Method> methods = methodRepository.findByType(type);
 		for(Method method : methods) {					
 			int invocations = invocationRepository.countInvocations(session, method);
@@ -96,7 +104,7 @@ public class QuerySession  implements GraphQLQueryResolver{
 		graph.append("\"data\": { \"id\": \"T" + type.getId() + "\", \"label\": \"" + type.getFullName() + "\", \"shape\": \"roundrectangle\", \"color\": \"#888\"}},");		
 	}
 	
-	private void graphAddInvocation(Session session) {
+	private void graphAddInvocation(Optional<Session> session) {
 		List<Invocation> invocations = invocationRepository.findBySession(session);
 		if(invocations.size() > 0) {
 			Map<String,String> labels = new HashMap<String,String>();
@@ -110,7 +118,6 @@ public class QuerySession  implements GraphQLQueryResolver{
 			}
 		}
 	}
-	
 	
 	private Map<String, String> graphAddInvocationAddString(Invocation invocation, Map<String, String> labels) {
 		String key = invocation.getInvoking().getId() + "->" + invocation.getInvoked().getId();
@@ -128,9 +135,10 @@ public class QuerySession  implements GraphQLQueryResolver{
 		return labels;
 	}
 	
+	@GraphQLQuery(name = "getStackData")
 	public  String getStackData(Long sessionId) {
 		StringBuffer graph = new StringBuffer();
-	    Session session = sessionRepository.findOne(sessionId);
+	    Optional<Session> session = sessionRepository.findById(sessionId);
 				
 		List<Method> startingMethods = methodRepository.getStartingMethods(session);
 		List<Method> endingMethods = methodRepository.getEndingMethods(session);
@@ -192,10 +200,10 @@ public class QuerySession  implements GraphQLQueryResolver{
 		return buffer.toString();
 	}
 	
-	
+	@GraphQLQuery(name = "getInterPathEdges")
 	public String getInterPathEdges(Long sessionId) {
 		StringBuffer graph = new StringBuffer();
-	    Session session = sessionRepository.findOne(sessionId);
+	    Optional<Session> session = sessionRepository.findById(sessionId);
 		
 		List<Method> startingMethods = methodRepository.getStartingMethods(session);
 		List<Method> endingMethods = methodRepository.getEndingMethods(session);
@@ -247,7 +255,7 @@ public class QuerySession  implements GraphQLQueryResolver{
 		}
 	}
 	
-	List<List<Invocation>> getInvocationPaths(List<Method> startingMethods, List<Method> endingMethods, Session session) {
+	List<List<Invocation>> getInvocationPaths(List<Method> startingMethods, List<Method> endingMethods, Optional<Session> session) {
 		List<List<Invocation>> paths = new ArrayList<List<Invocation>>();
 		List<Invocation> uniqueInvocations = new ArrayList<Invocation>();
 		
@@ -308,23 +316,25 @@ public class QuerySession  implements GraphQLQueryResolver{
 		paths.add(pathInvocations);
 		return paths;
 	}
-
+	
+	@GraphQLQuery
 	public int countElements(Long sessionId) {
-		Session session = sessionRepository.findOne(sessionId);
+		Optional<Session> session = sessionRepository.findById(sessionId);
 		int invocations = invocationRepository.countBySession(session);
 		int methods = methodRepository.countBySession(session);
 		return invocations + methods;
 	}
 	
+	@GraphQLQuery(name = "getGraphDataByTaskId")
 	public String getGraphDataByTaskId(Long taskId) {
 		String graph = "[";
 		
-		List<Session> sessions = sessionRepository.findByTask(taskId);
-		for (Session session : sessions) {
+		List<Optional<Session>> sessions = sessionRepository.findByTask(taskId);
+		for (Optional<Session> session : sessions) {
 			graph += getGraphData(session, false, false);
 		}
 		
 		return graph + "]";
 	}
-
+	
 }

@@ -1,9 +1,0 @@
-type Namespace {
-	id: ID!
-	name: String!
-	fullPath: String!
-}
-
-extend type Query {
-    namespaceByFullPath(fullPath: String!): Namespace
-}

@@ -2,11 +2,17 @@ package com.swarm.graphql.model;
 
 import java.util.Calendar;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
 
 @Entity
 public class Breakpoint {
-	
+
 	@Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
@@ -26,8 +32,7 @@ public class Breakpoint {
 	@Column(name="CREATION_TS", columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable=false, updatable=false)
 	private Calendar timestamp;
 	
-	public Breakpoint() {
-	}
+	public Breakpoint() {}
 	
 	public Breakpoint(Type type, String charStart, String charEnd, Integer lineNumber) {
 		this.type = type;
@@ -36,6 +41,26 @@ public class Breakpoint {
 		this.lineNumber = lineNumber;
 	}
 	
+	@Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Breakpoint breakpoint = (Breakpoint) o;
+
+        return id.equals(breakpoint.id);
+    }
+	
+	@Override
+    public int hashCode() {
+        return id.hashCode();
+    }
+
+    @Override
+    public String toString() {
+		return id + ": " + lineNumber;
+	}
+
 	public Long getId() {
 		return id;
 	}
@@ -75,25 +100,4 @@ public class Breakpoint {
 	public void setLineNumber(Integer lineNumber) {
 		this.lineNumber = lineNumber;
 	}
-	
-	@Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Breakpoint breakpoint = (Breakpoint) o;
-
-        return id.equals(breakpoint.id);
-    }
-	
-	@Override
-    public int hashCode() {
-        return id.hashCode();
-    }
-
-    @Override
-    public String toString() {
-		return id + ": " + lineNumber;
-	}
-
 }

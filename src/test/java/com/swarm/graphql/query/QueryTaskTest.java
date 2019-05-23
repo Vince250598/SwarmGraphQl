@@ -1,4 +1,4 @@
-package com.swarm.graphql.query;
+/*package com.swarm.graphql.query;
 
 import static org.junit.Assert.*;
 
@@ -14,7 +14,7 @@ import outils.JsonReader;
 
 public class QueryTaskTest {
 
-	@Test
+	/*@Test
 	public final void allTaskTest() throws IOException, JSONException {
 		
 		System.out.println("allTaskTest");
@@ -38,4 +38,4 @@ public class QueryTaskTest {
 		assertEquals(corect,data.toString());
 	}
 
-}
+}*/

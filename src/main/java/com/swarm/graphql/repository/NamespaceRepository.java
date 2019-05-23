@@ -6,7 +6,7 @@ import org.springframework.data.repository.query.Param;
 import com.swarm.graphql.model.Namespace;
 
 public interface NamespaceRepository extends CrudRepository<Namespace, Long> {
-	
+
 	Namespace findByFullPath(@Param("fullPath") String fullPath);
 
 }

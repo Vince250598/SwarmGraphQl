@@ -3,11 +3,19 @@ package com.swarm.graphql.model;
 import java.util.Calendar;
 import java.util.Date;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
 
 @Entity
 public class Session {
-	
+
 	@Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
@@ -35,8 +43,7 @@ public class Session {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date finished;
 	
-	public Session() {
-	}
+	public Session () {}
 	
 	public Session(Developer developer, Task task, String description, String label, String purpose, String project, Date started, Date finished) {
 		this.developer = developer;
@@ -140,5 +147,5 @@ public class Session {
     public String toString() {
 		return id + ": " + description;
 	}
-
+	
 }

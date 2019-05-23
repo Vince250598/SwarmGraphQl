@@ -1,4 +1,4 @@
-package com.swarm.graphql.query;
+/*package com.swarm.graphql.query;
 
 import static org.junit.Assert.*;
 
@@ -21,7 +21,7 @@ public class QueryMethodTest {
 		SwarmGraphQlApplication.main(new String[0]);
 	}
 */
-	@Test
+	/*@Test
 	public final void testMethodsByTypeId() throws IOException, JSONException {
 		System.out.println("testMethodsByTypeId");
 		JSONObject json = JsonReader.readJsonFromUrl("http://localhost:8080/graphql?query=%7BmethodsByTypeId(typeId:1)%7Bid%7D%7D");
@@ -63,4 +63,4 @@ public class QueryMethodTest {
 
 	
 
-}
+}*/

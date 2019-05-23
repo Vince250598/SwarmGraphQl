@@ -7,117 +7,25 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.swarm.graphql.model.*;
-import com.swarm.graphql.query.Query;
-import com.swarm.graphql.query.QueryBreakpoint;
-import com.swarm.graphql.query.QueryDeveloper;
-import com.swarm.graphql.query.QueryEvent;
-import com.swarm.graphql.query.QueryInvocation;
-import com.swarm.graphql.query.QueryMethod;
-import com.swarm.graphql.query.QueryNamespace;
-import com.swarm.graphql.query.QueryProduct;
-import com.swarm.graphql.query.QuerySession;
-import com.swarm.graphql.query.QueryTask;
-import com.swarm.graphql.query.QueryType;
-import com.swarm.graphql.repository.*;
-import com.swarm.graphql.resolver.*;
+import com.swarm.graphql.repository.ArtefactRepository;
+import com.swarm.graphql.repository.BreakpointRepository;
+import com.swarm.graphql.repository.DeveloperRepository;
+import com.swarm.graphql.repository.EventRepository;
+import com.swarm.graphql.repository.InvocationRepository;
+import com.swarm.graphql.repository.MethodRepository;
+import com.swarm.graphql.repository.NamespaceRepository;
+import com.swarm.graphql.repository.ProductRepository;
+import com.swarm.graphql.repository.SessionRepository;
+import com.swarm.graphql.repository.TaskRepository;
+import com.swarm.graphql.repository.TypeRepository;
 
 @Configuration
 public class MainConfig {
 	
 	@Bean
-	public SessionResolver developerResolver(DeveloperRepository developerRepository, TaskRepository taskRepository) {
-		return new SessionResolver(developerRepository, taskRepository);
-	}
-	
-	@Bean
-	public TaskResolver taskResolver(ProductRepository productRepository) {
-		return new TaskResolver(productRepository);
-	}
-	
-	@Bean
-	public TypeResolver typeResolver(NamespaceRepository namespaceRepository, SessionRepository sessionRepository) {
-		return new TypeResolver(namespaceRepository, sessionRepository);
-	}
-	
-	@Bean
-	public BreakpointResolver breakpointResolver(TypeRepository typeRepository) {
-		return new BreakpointResolver(typeRepository);
-	}
-	
-	@Bean
-	public MethodResolver methodResolver(TypeRepository typeRepository) {
-		return new MethodResolver(typeRepository);
-	}
-	
-	@Bean
-	public InvocationResolver invocationResolver(SessionRepository sessionRepository, MethodRepository methodRepository) {
-		return new InvocationResolver(sessionRepository, methodRepository);
-	}
-	
-	@Bean
-	public EventResolver eventResolver(SessionRepository sessionRepository, MethodRepository methodRepository) {
-		return new EventResolver(sessionRepository, methodRepository);
-	}
-
-	@Bean
-	public Query query() {
-		return new Query();
-	}
-	
-	@Bean
-	public QueryBreakpoint queryBreakPoint(BreakpointRepository breakpointRepository, ProductRepository productRepository) {
-		return new QueryBreakpoint(breakpointRepository, productRepository);
-	}
-	
-	@Bean
-	public QueryDeveloper queryDeveloper(DeveloperRepository developerRepository) {
-		return new QueryDeveloper(developerRepository);
-	}
-	
-	@Bean
-	public QueryTask queryTask(TaskRepository taskRepository, TypeRepository typeRepository, BreakpointRepository breakpointRepository) {
-		return new QueryTask(taskRepository, typeRepository, breakpointRepository);
-	}
-	
-	@Bean
-
-	public QueryProduct queryProduct(ProductRepository productRepository,InvocationRepository invocationRepository,TypeRepository typeRepository) {
-		return new QueryProduct(productRepository,  invocationRepository, typeRepository);
-	}
-
-	@Bean
-	public QueryNamespace queryNamespace(NamespaceRepository namespaceRepository) {
-		return new QueryNamespace(namespaceRepository);
-	}
-
-	@Bean
-	public QuerySession querySession(SessionRepository sessionRepository, TypeRepository typeRepository, MethodRepository methodRepository, InvocationRepository invocationRepository) {
-		return new QuerySession(sessionRepository, typeRepository, methodRepository, invocationRepository);
-	}
-
-	@Bean
-	public QueryInvocation queryInvocation(InvocationRepository invocationRepository) {
-		return new QueryInvocation(invocationRepository);
-	}
-
-	@Bean
-	public QueryType queryType(TypeRepository typeRepository) {
-		return new QueryType(typeRepository);
-	}
-	
-	@Bean
-	public QueryMethod queryMethod(MethodRepository methodRepository, SessionRepository sessionRepository) {
-		return new QueryMethod(methodRepository, sessionRepository);
-	}
-
-	@Bean
-	public QueryEvent queryEvent(EventRepository eventRepository) {
-		return new QueryEvent(eventRepository);
-	}
-	
-	@Bean
 	public CommandLineRunner test(
 			DeveloperRepository developerRepository, 
+			ArtefactRepository artefactRepository,
 			SessionRepository sessionRepository,
 			TaskRepository taskRepository,
 			ProductRepository productRepository,
@@ -129,8 +37,24 @@ public class MainConfig {
 			EventRepository eventRepository) {
 		
 		return (args) -> {
-			Developer developer1 = new Developer("developer1.name", "developer1.color");
-			Developer developer2 = new Developer("developer2.name", "developer2.color");
+			Developer developer1 = new Developer("Jean-Guy", "developer1.color");
+			Developer developer2 = new Developer("Robert", "developer2.color");
+			
+			Artefact artefact1 = new Artefact("public class HelloWorld {\r\n" + 
+					"\r\n" + 
+					"    public static void main(String[] args) {\r\n" + 
+					"        // Prints \"Hello, World\" to the terminal window.\r\n" + 
+					"        System.out.println(\"Hello, World\");\r\n" + 
+					"    }\r\n" + 
+					"\r\n" + 
+					"}", 1L);
+			Artefact artefact2 = new Artefact("class ForLoopExample2 {\r\n" + 
+					"    public static void main(String args[]){\r\n" + 
+					"         for(int i=1; i>=1; i++){\r\n" + 
+					"              System.out.println(\"The value of i is: \"+i);\r\n" + 
+					"         }\r\n" + 
+					"    }\r\n" + 
+					"}", 4L);
 			
 			Product product1 = new Product("product1.name");
 			Product product2 = new Product("product2.name");
@@ -146,8 +70,8 @@ public class MainConfig {
 			Namespace namespace1 = new Namespace("namespace1.name","namespace1.fullPath");
 			Namespace namespace2 = new Namespace("namespace2.name","namespace2.fullPath");
 			
-			Type type1 = new Type(namespace1, session1, "type1.fullName","type1.fullPath", "type1.name","type1.source");
-			Type type2 = new Type(namespace2, session2, "type2.fullName","type2.fullPath", "type2.name","type2.source");
+			Type type1 = new Type(namespace1, session1, "type1.fullName","type1.fullPath", "type1.name",artefact1);
+			Type type2 = new Type(namespace2, session2, "type2.fullName","type2.fullPath", "type2.name",artefact2);
 			
 			Breakpoint breakpoint1 = new Breakpoint(type1,"breakpoint1.start","breakpoint1.end",59);
 			Breakpoint breakpoint2 = new Breakpoint(type2,"breakpoint2.start","breakpoint2.end",374);
@@ -161,6 +85,8 @@ public class MainConfig {
 			
 			developerRepository.save(developer1);
 			developerRepository.save(developer2);
+			artefactRepository.save(artefact1);
+			artefactRepository.save(artefact2);
 			productRepository.save(product1);
 			productRepository.save(product2);
 			taskRepository.save(task1);
@@ -179,5 +105,7 @@ public class MainConfig {
 			eventRepository.save(event1);
 		};
 	}
+		
+	
 
 }
